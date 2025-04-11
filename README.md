@@ -10,16 +10,28 @@ npm install eslint-plugin-no-duplicate-declarations --save-dev
 
 ## Usage
 
-Add to your `.eslintrc.js`:
+Add to your `eslint.config.mjs`:
 
 ```js
-module.exports = {
-  parser: '@typescript-eslint/parser', // Required for TypeScript
-  plugins: ['no-duplicate-declarations'],
-  rules: {
-    'no-duplicate-declarations/no-duplicate-declarations': 'error',
+import { defineConfig } from 'eslint/config'
+import noDuplicateDeclarations from 'eslint-plugin-no-duplicate-declarations'
+import tsParser from '@typescript-eslint/parser'
+
+export default defineConfig([
+  {
+    plugins: {
+      'no-duplicate-declarations': noDuplicateDeclarations,
+    },
+    languageOptions: {
+      parser: tsParser,
+      ecmaVersion: 2021,
+      sourceType: 'module',
+    },
+    rules: {
+      'no-duplicate-declarations/no-duplicate-declarations': 'error',
+    },
   },
-}
+])
 ```
 
 ## Configuration Options
